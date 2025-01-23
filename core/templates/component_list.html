@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Components</h1>
+<ul>
+    {% for component in components %}
+    <li>{{ component.name }} - ${{ component.price }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
