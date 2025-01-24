@@ -168,7 +168,7 @@
                 <label for="frame-type">نوع الطولة الكادر</label>
                 <select id="frame-type" class="form-control">
                     {% for bar in bars %}
-                        <option value="{{ bar.id }}">{{ bar.name }}</option>
+                        <option value="{{ bar.id }}" data-price="{{ bar.price }}">{{ bar.name }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -188,8 +188,61 @@
                 <label for="quantity">العدد</label>
                 <input type="number" id="quantity" required>
             </div>
-            <button type="submit">حساب التكلفة</button>
+        <button type="submit">حساب التكلفة</button>
         </form>
+        
+        <div id="results-container" style="margin-top: 2rem; display: none;">
+            <h2>النتائج المقترحة:</h2>
+            <div id="results-list"></div>
+        </div>
+
+        <script>
+            document.querySelector('form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Clear previous results
+                const resultsList = document.getElementById('results-list');
+                resultsList.innerHTML = '';
+                
+                // Get form values
+                const height = parseFloat(document.getElementById('height').value);
+                const width = parseFloat(document.getElementById('width').value);
+                const increase = parseFloat(document.getElementById('increase').value) || 0;
+                const selectedBarId = document.getElementById('frame-type').value;
+                
+                // Get selected bar price
+                const selectedBar = document.querySelector('#frame-type option:checked');
+                const barPrice = parseFloat(selectedBar.dataset.price);
+                
+                // Calculate first result
+                const firstResult = ((height + width) * 2 + increase) * barPrice;
+                
+                // Create results
+                for (let i = 0; i < 5; i++) {
+                    const resultDiv = document.createElement('div');
+                    resultDiv.className = 'result-item';
+                    resultDiv.style.padding = '1rem';
+                    resultDiv.style.marginBottom = '0.5rem';
+                    resultDiv.style.backgroundColor = 'var(--card-bg)';
+                    resultDiv.style.borderRadius = '0.5rem';
+                    resultDiv.style.border = '1px solid var(--border-color)';
+                    
+                    const value = i === 0 ? firstResult.toFixed(2) : '0.00';
+                    
+                    resultDiv.innerHTML = `
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>النتيجة ${i + 1}:</span>
+                            <span>${value}</span>
+                        </div>
+                    `;
+                    resultsList.appendChild(resultDiv);
+                }
+                
+                // Show results container
+                document.getElementById('results-container').style.display = 'block';
+            });
+        </script>
+
         <div class="nav">
             <a href="{% url 'tables' %}">عرض الجداول</a>
         </div>
