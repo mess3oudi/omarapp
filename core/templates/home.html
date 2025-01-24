@@ -174,9 +174,9 @@
             </div>
             <div class="form-group">
                 <label for="window-door-type">نوع الطولة الشباك او الباب</label>
-                <select id="frame-type" class="form-control">
+                <select id="window-door-type" class="form-control">
                     {% for bar in bars %}
-                        <option value="{{ bar.id }}">{{ bar.name }}</option>
+                        <option value="{{ bar.id }}" data-price="{{ bar.price }}">{{ bar.name }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -210,15 +210,44 @@
                 const increase = parseFloat(document.getElementById('increase').value) || 0;
                 const selectedBarId = document.getElementById('frame-type').value;
                 
-                // Get selected bar price
-                const selectedBar = document.querySelector('#frame-type option:checked');
-                const barPrice = parseFloat(selectedBar.dataset.price);
+                // Get selected bar prices
+                const frameBar = document.querySelector('#frame-type option:checked');
+                const barPrice1 = parseFloat(frameBar.dataset.price);
+                
+                const windowDoorBar = document.querySelector('#window-door-type option:checked');
+                const barPrice2 = parseFloat(windowDoorBar.dataset.price);
                 
                 // Calculate first result
-                const firstResult = ((height + width) * 2 + increase) * barPrice;
+                const Result1 = ((height + width) * 2 + increase) * barPrice1 + ((height + width) * 2) * barPrice2;
+                // Calculate seconde result
+                const Result2 = ((height + width) * 2 + increase) * barPrice1 + ((height*4 + width*2)) * barPrice2;
+                // Calculate thirsd result
+                const Result3 = ((height + width) * 2 + increase) * barPrice1 + ((height + width) * 2) * barPrice2;
+                // Calculate forsd result
+                const Result4 = ((height + width) * 2 + increase) * barPrice1 + ((height *4 + width *2 )) * barPrice2;
+                // Calculate fift result
+                const Result5 = ((height + width) * 2 + increase) * barPrice1 + ((height*4 + width*2)) * barPrice2;
                 
-                // Create results
-                for (let i = 0; i < 5; i++) {
+                // Create array of results
+                const results = [
+                    Result1.toFixed(2),
+                    Result2.toFixed(2),
+                    Result3.toFixed(2),
+                    Result4.toFixed(2),
+                    Result5.toFixed(2)
+                ];
+
+                // Define result names
+                const resultNames = [
+                    "شباك بو فردة",
+                    "شباك بو فردتين",
+                    "باب بو فردة", 
+                    "باب بو فردتين",
+                    "شباك او باب متحرك"
+                ];
+
+                // Display results with descriptive names
+                results.forEach((result, index) => {
                     const resultDiv = document.createElement('div');
                     resultDiv.className = 'result-item';
                     resultDiv.style.padding = '1rem';
@@ -227,16 +256,14 @@
                     resultDiv.style.borderRadius = '0.5rem';
                     resultDiv.style.border = '1px solid var(--border-color)';
                     
-                    const value = i === 0 ? firstResult.toFixed(2) : '0.00';
-                    
                     resultDiv.innerHTML = `
                         <div style="display: flex; justify-content: space-between;">
-                            <span>النتيجة ${i + 1}:</span>
-                            <span>${value}</span>
+                            <span>${resultNames[index]}:</span>
+                            <span>${result}</span>
                         </div>
                     `;
                     resultsList.appendChild(resultDiv);
-                }
+                });
                 
                 // Show results container
                 document.getElementById('results-container').style.display = 'block';
