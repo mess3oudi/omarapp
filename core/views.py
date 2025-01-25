@@ -9,13 +9,18 @@ import json
 def home(request):
     bars = Bar.objects.all()
     accessories = Accessory.objects.all()
+    redeau_accessories = RedeauAccessory.objects.all()
     accessories_json = json.dumps({
         a.name: float(a.price) for a in accessories
+    })
+    redeau_json = json.dumps({
+        r.name: float(r.price) for r in redeau_accessories
     })
     return render(request, 'home.html', {
         'bars': bars,
         'accessories': accessories,
-        'accessories_json': accessories_json
+        'accessories_json': accessories_json,
+        'redeau_json': redeau_json
     })
 
 def tables(request):

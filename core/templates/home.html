@@ -219,6 +219,19 @@
             const Accessory22112 = accessoryPrices['22112'] || 0;
             const Accessory166 = accessoryPrices['166'] || 0;
             const Accessory154 = accessoryPrices['154'] || 0;
+
+            // Create redeau accessory prices object
+            const redeauPrices = JSON.parse('{{ redeau_json|safe }}');
+            
+            // Define individual redeau accessory price variables
+            const RolangeAxe = redeauPrices['Rolange axe'] || 0;
+            const Axe = redeauPrices['axe'] || 0;
+            const Moteur = redeauPrices['moteur'] || 0;
+            const Tirent = redeauPrices['tirent'] || 0;
+            const Glissiere = redeauPrices['glissiére'] || 0;
+            const Lamet = redeauPrices['lamet'] || 0;
+            const LameFinale = redeauPrices['Lame finale'] || 0;
+            
             
             document.querySelector('form').addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -232,7 +245,8 @@
                 const width = parseFloat(document.getElementById('width').value);
                 const increase = parseFloat(document.getElementById('increase').value) || 0;
                 const selectedBarId = document.getElementById('frame-type').value;
-                
+                const totalredeau = RolangeAxe + (Axe * (width - 0.1))+Moteur+( 2*Tirent)+(Glissiere*(height*2+0.12))+
+                Lamet*(((height+0.11)/5.5)*width)+LameFinale*width;
                 // Get selected bar prices
                 const frameBar = document.querySelector('#frame-type option:checked');
                 const barPrice1 = parseFloat(frameBar.dataset.price);
@@ -241,7 +255,9 @@
                 const barPrice2 = parseFloat(windowDoorBar.dataset.price);
 
                 // Calculate first result
-                const Result1 = ((height + width) * 2 + increase) * barPrice1 + ((height + width) * 2) * barPrice2;
+                const Result1 = ((height + width) * 2 + increase) * barPrice1 + ((height + width) * 2) 
+                * barPrice2 + (Cremon+KitCremon+Ecair*8+Pomelle*2+Silcon+(JoinBaitement*(height+width)*4))+ 
+                (JoinVitrage*(height+width)*4)+Vitrage*(height*width)+ totalredeau;
                 // Calculate seconde result
                 const Result2 = ((height + width) * 2 + increase) * barPrice1 + ((height*4 + width*2)) * barPrice2;
                 // Calculate thirsd result
