@@ -153,11 +153,11 @@
         <h1>حساب تكلفة الأبواب والنوافذ</h1>
         <form>
             <div class="form-group">
-                <label for="height">الارتفاع</label>
+                <label for="height"> الارتفاع بالمتر</label>
                 <input type="number" id="height" required>
             </div>
             <div class="form-group">
-                <label for="width">العرض</label>
+                <label for="width">الطول بالمتر</label>
                 <input type="number" id="width" required>
             </div>
             <div class="form-group">
@@ -253,19 +253,32 @@
                 
                 const windowDoorBar = document.querySelector('#window-door-type option:checked');
                 const barPrice2 = parseFloat(windowDoorBar.dataset.price);
-
+                // accessories price for the first result 
+                const accessorycost1 = (Cremon+KitCremon+Ecair*8+Pomelle*2+Silcon+(JoinBaitement*(height+width)*4))+ 
+                (JoinVitrage*(height+width)*4)+Vitrage*(height*width);
+                // accessories price for the second result
+                const accessorycost2 = Cremon+KitCremon+Ecair*12+Pomelle*4+Bouchon112*2+Silcon+(JoinBaitement*((height+width)*4+height*2))+ 
+                (JoinVitrage*((height+width)*4+height*2))+Vitrage*(height*width)+KitVerro+Accessory40112*height;
+                // accessories price for the third result
+                const accessorycost3 = Ecair*12+Pomelle*4+Silcon+(JoinBaitement*((height+width)*4+height*2))+ 
+                (JoinVitrage*((height+width)*4+height*2))+Vitrage*(height*width)+Galet*4+Fermeture*2+Accessory22112*2*height;
+                // accessories price for the forth result 
+                const accessorycost4 = (Piquette+Ecair*4+Pomelle*3+Serrure+Silcon+(JoinBaitement*(height+width)*4))+ 
+                (JoinVitrage*(height+width)*4)+Vitrage*(height*width)+Accessory166*(width*2+(width+height)*2)+Accessory154*height*width;
+                // accessories price for the third result
+                const accessorycost5 = Piquette+Ecair*6+Pomelle*6+Bouchon112+Serrure+Silcon+(JoinBaitement*((height+width)*4+height*2))+ 
+                (JoinVitrage*((height+width)*4+height*2))+Vitrage*(height*width)+Accessory40112*height+Accessory166*(width*2+(height+width)*2)+Accessory154*width*2;
                 // Calculate first result
                 const Result1 = ((height + width) * 2 + increase) * barPrice1 + ((height + width) * 2) 
-                * barPrice2 + (Cremon+KitCremon+Ecair*8+Pomelle*2+Silcon+(JoinBaitement*(height+width)*4))+ 
-                (JoinVitrage*(height+width)*4)+Vitrage*(height*width)+ totalredeau;
+                * barPrice2 +accessorycost1 + totalredeau;
                 // Calculate seconde result
-                const Result2 = ((height + width) * 2 + increase) * barPrice1 + ((height*4 + width*2)) * barPrice2;
-                // Calculate thirsd result
-                const Result3 = ((height + width) * 2 + increase) * barPrice1 + ((height + width) * 2) * barPrice2;
-                // Calculate forsd result
-                const Result4 = ((height + width) * 2 + increase) * barPrice1 + ((height *4 + width *2 )) * barPrice2;
+                const Result2 = ((height + width) * 2 + increase) * barPrice1 + ((height*4 + width*2)) * barPrice2+accessorycost2+totalredeau;
+                // Calculate third result
+                const Result3 = ((height + width) * 2 + increase) * barPrice1 + ((height + width) * 2) * barPrice2+accessorycost3+totalredeau;
+                // Calculate forth result
+                const Result4 = ((height + width) * 2 + increase) * barPrice1 + ((height *4 + width *2 )) * barPrice2+accessorycost4+totalredeau;
                 // Calculate fift result
-                const Result5 = ((height + width) * 2 + increase) * barPrice1 + ((height*4 + width*2)) * barPrice2;
+                const Result5 = ((height + width) * 2 + increase) * barPrice1 + ((height*4 + width*2)) * barPrice2+accessorycost5+totalredeau;
                 
                 // Create array of results
                 const results = [
