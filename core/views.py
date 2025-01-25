@@ -8,7 +8,15 @@ import json
 
 def home(request):
     bars = Bar.objects.all()
-    return render(request, 'home.html', {'bars': bars})
+    accessories = Accessory.objects.all()
+    accessories_json = json.dumps({
+        a.name: float(a.price) for a in accessories
+    })
+    return render(request, 'home.html', {
+        'bars': bars,
+        'accessories': accessories,
+        'accessories_json': accessories_json
+    })
 
 def tables(request):
     accessories = Accessory.objects.all()

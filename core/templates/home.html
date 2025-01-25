@@ -197,6 +197,29 @@
         </div>
 
         <script>
+            // Create accessory prices object
+            const accessoryPrices = JSON.parse('{{ accessories_json|safe }}');
+            
+            // Define individual accessory price variables
+            const Cremon = accessoryPrices['Cremon'] || 0;
+            const Piquette = accessoryPrices['Piquette'] || 0;
+            const KitCremon = accessoryPrices['Kit Cremon'] || 0;
+            const Ecair = accessoryPrices['Ecair'] || 0;
+            const Pomelle = accessoryPrices['Pomelle'] || 0;
+            const Bouchon112 = accessoryPrices['Bouchon 112'] || 0;
+            const Serrure = accessoryPrices['Serrure'] || 0;
+            const Silcon = accessoryPrices['Silcon'] || 0;
+            const JoinBaitement = accessoryPrices['Join Baitement'] || 0;
+            const JoinVitrage = accessoryPrices['Join Vitrage'] || 0;
+            const Vitrage = accessoryPrices['Vitrage'] || 0;
+            const KitVerro = accessoryPrices['Kit Verro'] || 0;
+            const Galet = accessoryPrices['Galet'] || 0;
+            const Fermeture = accessoryPrices['Fermeture'] || 0;
+            const Accessory40112 = accessoryPrices['40112'] || 0;
+            const Accessory22112 = accessoryPrices['22112'] || 0;
+            const Accessory166 = accessoryPrices['166'] || 0;
+            const Accessory154 = accessoryPrices['154'] || 0;
+            
             document.querySelector('form').addEventListener('submit', function(e) {
                 e.preventDefault();
                 
@@ -216,7 +239,7 @@
                 
                 const windowDoorBar = document.querySelector('#window-door-type option:checked');
                 const barPrice2 = parseFloat(windowDoorBar.dataset.price);
-                
+
                 // Calculate first result
                 const Result1 = ((height + width) * 2 + increase) * barPrice1 + ((height + width) * 2) * barPrice2;
                 // Calculate seconde result
