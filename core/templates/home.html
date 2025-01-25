@@ -70,10 +70,26 @@
         }
 
         input[type="text"]:focus,
-        input[type="number"]:focus {
+        input[type="number"]:focus,
+        select:focus {
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            background: var(--card-bg);
+            color: var(--text-color);
+            transition: all 0.2s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1rem;
         }
 
         button[type="submit"] {
@@ -154,15 +170,15 @@
         <form>
             <div class="form-group">
                 <label for="height"> الارتفاع بالمتر</label>
-                <input type="number" id="height" required>
+                <input type="number" id="height" step="any" required>
             </div>
             <div class="form-group">
                 <label for="width">الطول بالمتر</label>
-                <input type="number" id="width" required>
+                <input type="number" id="width" step="any" required>
             </div>
             <div class="form-group">
                 <label for="increase">الزيادة</label>
-                <input type="number" id="increase">
+                <input type="number" id="increase" step="any">
             </div>
             <div class="form-group">
                 <label for="frame-type">نوع الطولة الكادر</label>
@@ -190,6 +206,22 @@
             </div>
         <button type="submit">حساب التكلفة</button>
         </form>
+
+        <div class="form-group">
+            <label for="typeSelect">اختر نوع الحساب:</label>
+            <select id="typeSelect" class="form-control">
+                <option value="1">شباك بو فردة</option>
+                <option value="2">شباك بو فردتين</option>
+                <option value="3">باب بو فردة</option>
+                <option value="4">باب بو فردتين</option>
+                <option value="5">شباك او باب متحرك</option>
+            </select>
+        </div>
+
+        <div id="selected-result" class="mt-3" style="display: none;">
+            <h3>النتيجة المختارة:</h3>
+            <div id="selected-result-value" style="font-size: 1.5rem; font-weight: bold;"></div>
+        </div>
         
         <div id="results-container" style="margin-top: 2rem; display: none;">
             <h2>النتائج المقترحة:</h2>
@@ -280,42 +312,43 @@
                 // Calculate fift result
                 const Result5 = ((height + width) * 2 + increase) * barPrice1 + ((height*4 + width*2)) * barPrice2+accessorycost5+totalredeau;
                 
-                // Create array of results
-                const results = [
-                    Result1.toFixed(2),
-                    Result2.toFixed(2),
-                    Result3.toFixed(2),
-                    Result4.toFixed(2),
-                    Result5.toFixed(2)
-                ];
+                // Get selected calculation type
+                const selectedType = document.getElementById('typeSelect').value;
+                
+                // Show only the selected result
+                let result, resultName;
+                switch(selectedType) {
+                    case '1':
+                        result = Result1.toFixed(2);
+                        resultName = "شباك بو فردة";
+                        break;
+                    case '2':
+                        result = Result2.toFixed(2);
+                        resultName = "شباك بو فردتين";
+                        break;
+                    case '3':
+                        result = Result3.toFixed(2);
+                        resultName = "باب بو فردة";
+                        break;
+                    case '4':
+                        result = Result4.toFixed(2);
+                        resultName = "باب بو فردتين";
+                        break;
+                    case '5':
+                        result = Result5.toFixed(2);
+                        resultName = "شباك او باب متحرك";
+                        break;
+                }
 
-                // Define result names
-                const resultNames = [
-                    "شباك بو فردة",
-                    "شباك بو فردتين",
-                    "باب بو فردة", 
-                    "باب بو فردتين",
-                    "شباك او باب متحرك"
-                ];
-
-                // Display results with descriptive names
-                results.forEach((result, index) => {
-                    const resultDiv = document.createElement('div');
-                    resultDiv.className = 'result-item';
-                    resultDiv.style.padding = '1rem';
-                    resultDiv.style.marginBottom = '0.5rem';
-                    resultDiv.style.backgroundColor = 'var(--card-bg)';
-                    resultDiv.style.borderRadius = '0.5rem';
-                    resultDiv.style.border = '1px solid var(--border-color)';
-                    
-                    resultDiv.innerHTML = `
+                // Display single result
+                resultsList.innerHTML = `
+                    <div class="result-item" style="padding: 1rem; margin-bottom: 0.5rem; background-color: var(--card-bg); border-radius: 0.5rem; border: 1px solid var(--border-color);">
                         <div style="display: flex; justify-content: space-between;">
-                            <span>${resultNames[index]}:</span>
+                            <span>${resultName}:</span>
                             <span>${result}</span>
                         </div>
-                    `;
-                    resultsList.appendChild(resultDiv);
-                });
+                    </div>
+                `;
                 
                 // Show results container
                 document.getElementById('results-container').style.display = 'block';
