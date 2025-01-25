@@ -35,6 +35,8 @@ def tables(request):
     }
     return render(request, 'tables.html', context)
 
+from django.db import transaction
+
 @csrf_exempt
 def save_prices(request):
     if request.method == 'POST':
@@ -43,19 +45,34 @@ def save_prices(request):
             table = data.get('table')
             items = data.get('data')
             
-            # Update prices in database
-            for item in items:
-                name = item['name']
-                price = float(item['price'])
+            with transaction.atomic():
+                for item in items:
+                    name = item['name']
+                    price = float(item['price'])
+                    
+                    if table == 'accessoriesTable':
+                        acc = Accessory.objects.filter(name=name).first()
+                        if acc:
+                            print(f"Updating {name} from {acc.price} to {price}")
+                            acc.price = price
+                            acc.save()
+                            print(f"New price: {Accessory.objects.get(name=name).price}")
+                    elif table == 'barsTable':
+                        bar = Bar.objects.filter(name=name).first()
+                        if bar:
+                            print(f"Updating {name} from {bar.price} to {price}")
+                            bar.price = price
+                            bar.save()
+                            print(f"New price: {Bar.objects.get(name=name).price}")
+                    elif table == 'redeauTable':
+                        redeau = RedeauAccessory.objects.filter(name=name).first()
+                        if redeau:
+                            print(f"Updating {name} from {redeau.price} to {price}")
+                            redeau.price = price
+                            redeau.save()
+                            print(f"New price: {RedeauAccessory.objects.get(name=name).price}")
                 
-                if table == 'accessoriesTable':
-                    Accessory.objects.filter(name=name).update(price=price)
-                elif table == 'barsTable':
-                    Bar.objects.filter(name=name).update(price=price)
-                elif table == 'redeauTable':
-                    RedeauAccessory.objects.filter(name=name).update(price=price)
-            
-            return JsonResponse({'success': True})
+                return JsonResponse({'success': True})
         except Exception as e:
             return JsonResponse({'success': False, 'error': str(e)})
     return JsonResponse({'success': False, 'error': 'Invalid request method'})

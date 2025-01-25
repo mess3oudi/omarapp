@@ -204,19 +204,18 @@
                 <label for="quantity">العدد</label>
                 <input type="number" id="quantity" required>
             </div>
+            <div class="form-group">
+                <label for="typeSelect">اختر نوع الحساب:</label>
+                <select id="typeSelect" class="form-control">
+                    <option value="1">شباك بو فردة</option>
+                    <option value="2">شباك بو فردتين</option>
+                    <option value="3">باب بو فردة</option>
+                    <option value="4">باب بو فردتين</option>
+                    <option value="5">شباك او باب متحرك</option>
+                </select>
+            </div>
         <button type="submit">حساب التكلفة</button>
         </form>
-
-        <div class="form-group">
-            <label for="typeSelect">اختر نوع الحساب:</label>
-            <select id="typeSelect" class="form-control">
-                <option value="1">شباك بو فردة</option>
-                <option value="2">شباك بو فردتين</option>
-                <option value="3">باب بو فردة</option>
-                <option value="4">باب بو فردتين</option>
-                <option value="5">شباك او باب متحرك</option>
-            </select>
-        </div>
 
         <div id="selected-result" class="mt-3" style="display: none;">
             <h3>النتيجة المختارة:</h3>
@@ -345,7 +344,7 @@
                     <div class="result-item" style="padding: 1rem; margin-bottom: 0.5rem; background-color: var(--card-bg); border-radius: 0.5rem; border: 1px solid var(--border-color);">
                         <div style="display: flex; justify-content: space-between;">
                             <span>${resultName}:</span>
-                            <span>${result}</span>
+                            <span>${result}دينار</span>
                         </div>
                     </div>
                 `;

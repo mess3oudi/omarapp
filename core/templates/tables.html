@@ -136,78 +136,12 @@
                 </tr>
             </thead>
             <tbody>
+                {% for accessory in accessories %}
                 <tr>
-                    <td>Cremon</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
+                    <td>{{ accessory.name }}</td>
+                    <td><input type="number" step="0.01" value="{% if accessory.price %}{{ accessory.price }}{% endif %}" class="price-input"></td>
                 </tr>
-                <tr>
-                    <td>Piquette</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>Kit Cremon</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>Ecair</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>Pomelle</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>Bouchon 112</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>Serrure</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>Silcon</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>Join Baitement</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>Join Vitrage</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>Vitrage</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>Kit Verro</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>Galet</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>Fermeture</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>40112</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>22112</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>166</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>154</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
         <div style="text-align: center; margin: 1rem;">
@@ -223,38 +157,12 @@
                 </tr>
             </thead>
             <tbody>
+                {% for bar in bars %}
                 <tr>
-                    <td>402 k</td>
-                    <td><input type="number" step="0.01" value="49.99" class="price-input"></td>
+                    <td>{{ bar.name }}</td>
+                    <td><input type="number" step="0.01" value="{% if bar.price %}{{ bar.price }}{% endif %}" class="price-input"></td>
                 </tr>
-                <tr>
-                    <td>405 k</td>
-                    <td><input type="number" step="0.01" value="79.99" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>102</td>
-                    <td><input type="number" step="0.01" value="99.99" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>148</td>
-                    <td><input type="number" step="0.01" value="99.99" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>100</td>
-                    <td><input type="number" step="0.01" value="99.99" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>404</td>
-                    <td><input type="number" step="0.01" value="99.99" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>22106</td>
-                    <td><input type="number" step="0.01" value="99.99" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>22104</td>
-                    <td><input type="number" step="0.01" value="99.99" class="price-input"></td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
         <div style="text-align: center; margin: 1rem;">
@@ -270,34 +178,12 @@
                 </tr>
             </thead>
             <tbody>
+                {% for redeau in redeau_accessories %}
                 <tr>
-                    <td>Rolange axe</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
+                    <td>{{ redeau.name }}</td>
+                    <td><input type="number" step="0.01" value="{% if redeau.price %}{{ redeau.price }}{% else %}0.00{% endif %}" class="price-input"></td>
                 </tr>
-                <tr>
-                    <td>axe</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>moteur</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>tirent</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>glissiére</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>lamet</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
-                <tr>
-                    <td>Lame finale</td>
-                    <td><input type="number" step="0.01" value="0.00" class="price-input"></td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
         <div style="text-align: center; margin: 1rem;">
